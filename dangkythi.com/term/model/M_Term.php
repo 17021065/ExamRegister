@@ -1,6 +1,6 @@
 <?php  
-	include_once 'Term.php';
-	include 'Shift.php';
+	include_once 'term.php';
+	include 'shift.php';
 
 	class ModelTerm
 	{
@@ -23,13 +23,17 @@
 			return $termList;
 		}
 
-		public function getTermDetail($num){
-			$termDetail= $this->getAllTerm();
-			return $termDetail[$num];
+		public function getSelectedTerm($code){
+			$termSelected = $this->getAllTerm();
+			for ($i=0; $i < count($termSelected) ; $i++) { 
+				if ($termSelected[$i]->code == $code) {
+					return $termSelected[$i];
+				}
+			}
 		}
 
 		public function getExamShift($num){
-			$term = $this->getTermDetail($num);
+			$term = $this->getSelectedTerm($num);
 			include('../../core/Connector.php');
 
 			$shiftList = array("0" => '');

@@ -19,7 +19,7 @@
               echo '<a href="login/controller/C_Logout.php">Đăng xuất</a>';
 
               echo '<h3><a href="student/controller/C_ExamSchedule.php">Lịch thi</a></h3>
-                    <h3><a href="term/controller/C_term.php">Đăng kí thi</a></h3>';
+                    <h3><a href="term/controller/cterm.php">Đăng kí thi</a></h3>';
           }else if ($_SESSION['userrole'] == 'admin') {
               echo 'Bạn đang đăng nhập với tư cách quản trị viên ';
               echo '<a href="login/controller/C_Logout.php">Đăng xuất</a>';

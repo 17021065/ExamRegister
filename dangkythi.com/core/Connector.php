@@ -2,7 +2,7 @@
 <html>
 <body>
     <?php
-       $mysqli = new mysqli("localhost","root","","web");
+       	$mysqli = new mysqli("localhost","root","","web");
 
         // Check connection
         if ($mysqli -> connect_error) {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title><?php echo $term->name;?></title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -26,21 +26,22 @@
 				echo "Bạn không đủ điều kiện dự thi";
 			}else if ($row['check_']==1){
 				echo "<p>Danh sách ca thi<p>";
-				echo "<form action='../controller/C_Term.php' method='POST'>";
-				for($i=1; $i < count($listOfShifts); $i++){
+				echo "<form action='../controller/cterm.php' method='POST'>";
+				for($i=1; $i < count($shiftList); $i++){
 					include '../../core/Connector.php';
-					$sql1="call inDsThiSinh(".$listOfShifts[$i]->idShift.", ".$listOfShifts[$i]->idRoom.", ".$term->id.")";	
+					$sql1="call inDsThiSinh(".$shiftList[$i]->idShift.", ".$shiftList[$i]->idRoom.", ".$term->id.")";	
 					$query1 = mysqli_query($mysqli, $sql1);
 					$numRow = mysqli_num_rows($query1);
-					echo "<p>".$i." | ".$listOfShifts[$i]->nameShift." | "
-					.$listOfShifts[$i]->nameRoom." | "
-					.$listOfShifts[$i]->time." | "
-					.$listOfShifts[$i]->date." | "
-					.$listOfShifts[$i]->semester." | "
-					.$numRow."<input type='radio' name='select' id='".$listOfShifts[$i]->idShift."/" 													 .$listOfShifts[$i]->idRoom.
+					echo "<p>".$i." | ".$shiftList[$i]->nameShift." | "
+					.$shiftList[$i]->nameRoom." | "
+					.$shiftList[$i]->time." | "
+					.$shiftList[$i]->date." | "
+					.$shiftList[$i]->semester." | "
+					.$numRow."<input type='radio' name='select' id='".$shiftList[$i]->idShift."/" 													 	 .$shiftList[$i]->idRoom.
 																	"' value='".$term->id."/"
-																	 .$listOfShifts[$i]->idShift."/"
-																	 .$listOfShifts[$i]->idRoom."'></p>";
+																	 .$shiftList[$i]->idShift."/"
+																	 .$shiftList[$i]->idRoom."/"
+																	 .$_GET['code']."'></p>";
 				}
 
 				include '../../core/Connector.php';
@@ -59,10 +60,8 @@
 			}else {echo 'Có lỗi xảy ra';}
 		}else{echo 'Có lỗi xảy ra';}
 	}
-	
-	include 'TermDetail.html';
 ?>
-
+	<p><a href="../controller/cterm.php">Quay lại</a></p>
 </body>
 </html>
 
