@@ -25,6 +25,7 @@
               echo '<a href="login/controller/C_Logout.php">Đăng xuất</a>';
 
               echo '<h3 id="admin"><a href="administration/view/ManageExam.php">Quản lý kì thi</a></h3>';
+              echo '<h3 id="admin"><a href="administration/view/ManageRoom.php">Quản lý phòng thi</a></h3>';
           }else {
               echo 'Có lỗi xảy ra';
           }

@@ -36,7 +36,7 @@
 
 			$sql= 'CALL `cathi_hk`("'.$term->name.'")';
 			$query = mysqli_query($mysqli, $sql);
-			while ($row= mysqli_fetch_assoc($query)) {
+			while ($row= mysqli_fetch_array($query)) {
 				$shift = new Shift($row['cathi_id'], $row['tenCaThi'], $row['phongthi_id'], $row['Ten phong'], $row['gio_thi'], $row['ngay_thi'], $row['tenKiThi']);
 				array_push($shiftList, $shift);
 			}

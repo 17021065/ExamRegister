@@ -23,15 +23,15 @@
 
 
 			$sql1 = "call admin_addMonthi('".$code."', '".$term."', '".$date."')";
-			$sql3 = "call admin_addPhongThi('".$room."', '".$num."', '".$shift."')";
-			$sql4 = "call admin_add_caThi_monThi('".$term."', '".$shift."'')";
+			$sql2 = "call admin_addPhongThi('".$room."', '".$num."', '".$shift."')";
+			$sql3 = "call admin_add_caThi_monThi('".$term."', '".$shift."')";
 
 			mysqli_query($mysqli, $sql1);
+			mysqli_query($mysqli, $sql2);
 			mysqli_query($mysqli, $sql3);
-			mysqli_query($mysqli, $sql4);
-		}
 
-		header("Location: ../view/ManageExam.php"); 
+			header("Location: ../view/ManageExam.php");
+		}
 	?>
 </body>
 </html>

@@ -4,11 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Quản lí</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<title>Quản lí kỳ thi</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="../../core/script.js"></script>
 </head>
 <body>
-	<label><button onclick="goBack()">Về trang chủ</button></label>
+	<label><button onclick="GotoHomePage()">Về trang chủ</button></label>
 
 	<br>
 	<br>
@@ -33,10 +35,5 @@
 		$adminShift = new ModelAdmin();
 		$adminShift->showAllShift();
 	?>
-	<script>
-		function goBack() {
-  			window.history.back();
-		}
-	</script>
 </body>
 </html>
