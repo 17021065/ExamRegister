@@ -9,7 +9,7 @@
 	//Khai báo utf-8 để hiển thị được tiếng việt
 	header('Content-Type: text/html; charset=UTF-8');
 
-	include '../model/M_Login.php';
+	include '../model/m_login.php';
 	 
 	//Xử lý đăng nhập
 	if (isset($_POST['submit'])) 
@@ -23,7 +23,7 @@
 	    $checker = new LoginChecker();
 	    $checker->Check($username, $password);
 	}
-	
+
 	?>
 </body>
 </html>

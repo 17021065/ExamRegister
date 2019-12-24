@@ -1,13 +1,10 @@
-<?php 
-  session_start(); 
-?>
+<?php session_start() ?>
 
 <?php  
-  if (!isset($_SESSION['username'])){
-    header("Location: login/view/login.php"); 
-  }
+		include '../model/m_admin.php';
+		$adminShift = new ModelAdmin();
+		$roomList=$adminShift->showRoomList();
 ?>
-
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -17,24 +14,56 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Trang chủ</title>
+<title>Quản lí phòng thi</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Pooled Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<link href="../../css/bootstrap.min.css" rel='stylesheet' type='text/css' />
 <!-- Custom CSS -->
-<link href="css/style.css" rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href="css/morris.css" type="text/css"/>
+<link href="../../css/style.css" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="../../css/morris.css" type="text/css"/>
 <!-- Graph CSS -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="../../css/font-awesome.css" rel="stylesheet"> 
 <!-- jQuery -->
-<script src="js/jquery-2.1.4.min.js"></script>
+<script src="../../js/jquery-2.1.4.min.js"></script>
 <!-- //jQuery -->
+<!-- tables -->
+<link rel="stylesheet" type="text/css" href="../../css/table-style.css" />
+<link rel="stylesheet" type="text/css" href="../../css/basictable.css" />
+<script type="text/javascript" src="../../js/jquery.basictable.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#table').basictable();
+
+      $('#table-breakpoint').basictable({
+        breakpoint: 768
+      });
+
+      $('#table-swap-axis').basictable({
+        swapAxis: true
+      });
+
+      $('#table-force-off').basictable({
+        forceResponsive: false
+      });
+
+      $('#table-no-resize').basictable({
+        noResize: true
+      });
+
+      $('#table-two-axis').basictable();
+
+      $('#table-max-height').basictable({
+        tableWrapper: true
+      });
+    });
+</script>
+<!-- //tables -->
 <!-- lined-icons -->
-<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
+<link rel="stylesheet" href="../../css/icon-font.min.css" type='text/css' />
 <!-- //lined-icons -->
 </head> 
 <body>
@@ -45,7 +74,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
              <!--header start here-->
         <div class="header-main">
           <div class="logo-w3-agile">
-                <h1><a href="">ĐH.Công Nghệ</a></h1>
+                <h1><a href="../../index.php">ĐH.Công Nghệ</a></h1>
               </div>
           <div class="w3layouts-left">
               
@@ -203,7 +232,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                   <li class="dropdown profile_details_drop">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                       <div class="profile_img"> 
-                        <span class="prfil-img"><img src="images/in4.jpg" alt=""> </span> 
+                        <span class="prfil-img"><img src="../../images/in4.jpg" alt=""> </span> 
                         <div class="user-name">
                           <p><?php echo $_SESSION['fullname'];  ?></p>
                           <span><?php  
@@ -222,7 +251,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <ul class="dropdown-menu drp-mnu">
                       <li> <a href="#"><i class="fa fa-cog"></i> Cài đặt </a> </li> 
                       <li> <a href="#"><i class="fa fa-user"></i> Hồ sơ </a> </li> 
-                      <li> <a href="login/controller/logout.php"><i class="fa fa-sign-out"></i> Đăng xuất </a> </li>
+                      <li> <a href="../../login/controller/logout.php"><i class="fa fa-sign-out"></i> Đăng xuất </a> </li>
                     </ul>
                   </li>
                 </ul>
@@ -230,23 +259,88 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               
              <div class="clearfix"> </div>  
         </div>
-
+        <script>
+              var toggle = true;
+                    
+              $(".sidebar-icon").click(function() {                
+                if (toggle)
+                {
+                $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+                $("#menu span").css({"position":"absolute"});
+                }
+                else
+                {
+                $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+                setTimeout(function() {
+                  $("#menu span").css({"position":"relative"});
+                }, 400);
+                }
+                      
+                      toggle = !toggle;
+                    });
+              </script>
 <!--header end here-->
     <ol class="breadcrumb"> 
-                <li class="breadcrumb-item"><a href="index.php">Trang chủ</a> <i class="fa fa-angle-right"></i></li>
+                <li class="breadcrumb-item"><a href="../../index.php">Trang chủ</a> <i class="fa fa-angle-right"></i></li>
+                <li class="breadcrumb-item"><a href="m_room.php">Danh sách phòng thi</a> <i class="fa fa-angle-right"></i></li>
             </ol>
+<div class="agile-grids">	
+				<!-- tables -->
+				
+				<div class="agile-tables">
+					<div class="w3l-table-info">
+					  <h2>Danh sách phòng thi</h2>
+					    <table id="table">
+						<thead>
+						  <tr>
+							<th>Kì thi</th>
+							<th>Mã môn</th>
+							<th>Tên môn</th>
+							<th>Ngày thi</th>
+							<th>Ca thi</th>
+							<th>Giờ thi</th>
+							<th>Phòng thi</th>
+							<th></th>
+						  </tr>
+						</thead>
+						<tbody>
+						 	<?php 
+								while ($row = mysqli_fetch_assoc($roomList)) {
+	    	    			echo "<tr><td>".$row['tenKiThi']."</td><td>"
+						    	    	.$row['maHocPhan']."</td><td>"
+						    	    	.$row['tenMonThi']."</td><td>"
+						    	    	.$row['ngay_thi']."</td><td>"
+						    	    	.$row['tenCaThi']."</td><td>"
+						    	    	.$row['gio_thi']."</td><td>"
+						    	    	.$row['Ten phong']."</td><td>
+						    	    	<a href='../view/room.php?shift=".$row['cathi_id']."/".$row['phongthi_id']."/".$row['hocphan_id']."'>Xem</a></td></tr>";
+			    }
+							?>
+						</tbody>
+					  </table>
+					</div>
+				<!-- //tables -->
+			</div>
+<!-- script-for sticky-nav -->
+		<script>
+		$(document).ready(function() {
+			 var navoffeset=$(".header-main").offset().top;
+			 $(window).scroll(function(){
+				var scrollpos=$(window).scrollTop(); 
+				if(scrollpos >=navoffeset){
+					$(".header-main").addClass("fixed");
+				}else{
+					$(".header-main").removeClass("fixed");
+				}
+			 });
+			 
+		});
+		</script>
+		<!-- /script-for sticky-nav -->
 
 <!--agileinfo-grap-->
-<div class="agileinfo-grap">
-<div class="agileits-box">
-<header class="agileits-box-header clearfix">
-</header>
-<div class="agileits-box-body clearfix">
-<div id="hero-area"></div>
-</div>
-</div>
-</div>
-  <!--//agileinfo-grap-->
+
+<!--//agileinfo-grap-->
 <!--photoday-section-->  
                         
                       
@@ -281,27 +375,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
                            <div class="menu">
                   <ul id="menu" >
-                    <li><a href="index.php"><i class="fa fa-tachometer"></i> <span>Trang chủ</span><div class="clearfix"></div></a></li>
+                    <li><a href="../../index.php"><i class="fa fa-tachometer"></i> <span>Trang chủ</span><div class="clearfix"></div></a></li>
 
-                    <?php 
-                        if ($_SESSION['role'] == 'sinh vien') {
-                          echo '<li><a href="student/view/schedule.php"><i class="fa fa-table"></i> <span>Lịch thi</span><div class="clearfix"></div></a></li>
+                    <li><a href="m_room.php"><i class="fa fa-file-text-o"></i> <span>Quản lí phòng thi</span><div class="clearfix"></div></a></li>
 
-                                <li><a href="student/controller/c_term.php"><i class="fa fa-check-square-o nav_icon"></i><span>Đăng ký thi</span> </span><div class="clearfix"></div></a></li>';
-
-                        }else if ($_SESSION['role'] == 'admin') {
-                          echo '<li><a href="admin/view/m_room.php"><i class="fa fa-file-text-o"></i> <span>Quản lí phòng thi</span><div class="clearfix"></div></a></li>
-
-                               <li><a href="admin/view/m_exam.php"><i class="fa fa-list-ul"></i><span>Quản lí kỳ thi</span> </span><div class="clearfix"></div></a></li>';
+                    <li><a href="m_exam.php"><i class="fa fa-list-ul"></i><span>Quản lí kỳ thi</span> </span><div class="clearfix"></div></a></li>
                   
-                        }
-                     ?>
                   </ul>
                 </div>
                 </div>
                 <div class="clearfix"></div>    
               </div>
-            <script>
+              <script>
               var toggle = true;
                     
               $(".sidebar-icon").click(function() {                
@@ -321,13 +406,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                       toggle = !toggle;
                     });
               </script>
-<script src="js/jquery.nicescroll.js"></script>
-<script src="js/scripts.js"></script>
+<script src="../../js/jquery.nicescroll.js"></script>
+<script src="../../js/scripts.js"></script>
 <!-- Bootstrap Core JavaScript -->
-   <script src="js/bootstrap.min.js"></script>
+   <script src="../../js/bootstrap.min.js"></script>
    <!-- /Bootstrap Core JavaScript -->     
 <!-- morris JavaScript -->  
-<script src="js/raphael-min.js"></script>
-<script src="js/morris.js"></script>
+<script src="../../js/raphael-min.js"></script>
+<script src="../../js/morris.js"></script>
 </body>
 </html>
+
+

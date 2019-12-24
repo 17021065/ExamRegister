@@ -11,13 +11,19 @@
 
 		    public function Check($username, $password){		
 
+			    /*
 			    if (!$username || !$password) 
 			    {
-			        $_SESSION['fault'] = '* Chưa nhập đủ tài khoản và mật khẩu';
+			        $_SESSION['fault'] = '<script>
+						$(document).ready(function(){
+  							alert("Chưa nhập đủ thông tin tài khoản");
+						});
+					</script>';
 			        header("Location: ../view/Login.php");
 			        exit;
-			    }
-			     
+			    } 
+			    */
+
 			    //Mã hóa pasword
 			    $password = md5($password);
 
@@ -28,7 +34,11 @@
 
 			    if (mysqli_num_rows($query) == 0) 
 			    {
-			       	$_SESSION['fault'] = '* Tài khoản không tồn tại';
+			       	$_SESSION['fault'] = '<script>
+						$(document).ready(function(){
+  							alert("Tài khoản không tồn tại");
+						});
+					</script>';
 			        header("Location: ../view/Login.php");
 			        exit;
 			    }
@@ -36,7 +46,11 @@
 			    $row = mysqli_fetch_array($query);
 			    if ($password != md5($row['pass_word'])) 
 			   	{
-			    	$_SESSION['fault'] = '* Sai mật khẩu';
+			    	$_SESSION['fault'] = '<script>
+						$(document).ready(function(){
+  							alert("Sai mật khẩu");
+						});
+					</script>';
 				    header("Location: ../view/Login.php");
 				    exit;
 		    	}
@@ -49,16 +63,16 @@
 			    	$row2 = mysqli_fetch_assoc($query2);
 			    	$_SESSION['username'] = $username;
 					$_SESSION['userID'] = $row2['id'];
-					$_SESSION['fullnameUser'] = $row2['name'];
-					$_SESSION['userrole'] = $row2['role'];
+					$_SESSION['fullname'] = $row2['name'];
+					$_SESSION['role'] = $row2['role'];
 					header("Location: ../../index.php");
 			    	
 			    }else if ($row['role'] == 'admin') {
 
 			    	$_SESSION['username'] = $username;
 					$_SESSION['userID'] = $row['id'];
-					$_SESSION['fullnameUser'] = $row['name'];
-					$_SESSION['userrole'] = $row['role'];
+					$_SESSION['fullname'] = $row['name'];
+					$_SESSION['role'] = $row['role'];
 					header("Location: ../../index.php");
 				   
 			    }
