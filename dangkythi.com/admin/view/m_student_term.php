@@ -1,14 +1,11 @@
-<?php session_start() ?>
-	
-	<?php  
-			include '../../core/Connector.php';
-			$shift=explode("/", $_GET['shift']);
-			$reload=$_GET['shift'];
-			$sql="call inDsThiSinh('".$shift['0']."', '".$shift['1']."', '".$shift['2']."')";
-			$query = mysqli_query($mysqli, $sql);
-	?>
-
-
+<?php
+	session_start();
+?>
+<?php
+    include '../model/m_admin.php';
+    $adminShift = new ModelAdmin();
+    $stuterm=$adminShift->showStuTerm();
+?>
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -18,7 +15,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Danh sách thí sinh</title>
+<title>Quản lí sinh viên - học phần</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Pooled Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
@@ -286,33 +283,90 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--header end here-->
     <ol class="breadcrumb"> 
                 <li class="breadcrumb-item"><a href="../../index.php">Trang chủ</a> <i class="fa fa-angle-right"></i></li>
-                <li class="breadcrumb-item"><a href="m_room.php">Danh sách phòng thi</a> <i class="fa fa-angle-right"></i></li>
-                <li class="breadcrumb-item"><a href="room.php?shift=<?php echo $_GET['shift']; ?>">Danh sách thí sinh</a> <i class="fa fa-angle-right"></i></li>
+                <li class="breadcrumb-item"><a href="m_student_term.php">Quản lí sinh viên</a> <i class="fa fa-angle-right"></i></li>
             </ol>
+
+ <div class="grid-form1">
+  	       <h3>Thông tin sinh viên - học phần</h3>
+  	         <div class="tab-content">
+						<div class="tab-pane active" id="horizontal-form">
+							<form class="form-horizontal" action="../controller/c_admin.php" method="POST">
+								<div class="form-group">
+									<label for="focusedinput" class="col-sm-2 control-label">Tên sinh viên</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control1" id="focusedinput" name="stu">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="focusedinput" class="col-sm-2 control-label">Tên môn thi</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control1" id="focusedinput" name="term">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="focusedinput" class="col-sm-2 control-label">Điều kiện dự thi</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control1" id="focusedinput" name="condition" placeholder="Đạt hoặc Không đạt">
+									</div>
+								</div>
+		
+								<div class="form-group">
+									<div class="col-sm-8 col-sm-offset-2">
+										<button class="btn-primary btn" type="submit" name="add2">Thêm</button>
+										<button class="btn-default btn">Hủy</button>
+										<button class="btn-inverse btn">Nhập lại</button>
+									</div>
+								</div>
+								
+							</form>
+						</div>
+					</div>
+	<div class="bs-example" data-example-id="form-validation-states-with-icons">
+    <form>
+
+        <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputFile">Nhập bằng tệp</label>
+        <input type="file" id="exampleInputFile">
+        <p class="help-block">Hệ thống chỉ nhận file excel (đuôi .xlxs).</p>
+      </div>
+      <div class="panel-footer">
+		<div class="row">
+				<button class="btn-primary btn">Thêm</button>
+		</div>
+	 </div>
+    </form>
+  </div>
+ 	</div>
+ 	<!--//grid-->
 
 <div class="agile-grids">	
 				<!-- tables -->
-        <button class="btn-primary btn" onclick="printcontent('listPartici')">In danh sách</button>
-        <button class="btn-primary btn" onclick="printword()">Xuất ra file word</button>				
-				<div class="agile-tables"  id="listPartici">
+				
+				<div class="agile-tables">
 					<div class="w3l-table-info">
-					  <h2>Danh sách phòng thi</h2>
+					  <h2>Danh sách sinh viên - học phần</h2>
 					    <table id="table">
 						<thead>
 						  <tr>
-							<th>SBD</th>
-							<th>MSSV</th>
 							<th>Tên sinh viên</th>
+							<th>Mã môn</th>
+							<th>Tên môn</th>
+							<th>Điều kiện dự thi</th>
 						  </tr>
 						</thead>
 						<tbody>
 						 	<?php 
-						 		$i = 1;
-								while ($row = mysqli_fetch_assoc($query)) {
-	    	   						echo "<tr><td>".$i."</td><td>"
-	    	    						.$row['mssv']."</td><td>"
-	    	    						.$row['Ten Sv']."</td></tr>";
-	    	    						$i++;
+								while ($row = mysqli_fetch_assoc($stuterm)) {
+	    	    					echo "<tr><td>".$row['tenSV']."</td><td>"
+							    	    	.$row['maHP']."</td><td>"
+							    	    	.$row['TenMon']."</td><td>";
+							    	    	if ($row['DK']=="1") {
+                              echo 'Đạt</td></tr>';
+                          }else {
+                            echo 'Không đạt</td></tr>';
+                          }
 	    						}
 							?>
 						</tbody>
@@ -364,7 +418,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <!--inner block end here-->
 </div>
-
 </div>
   <!--//content-inner-->
       <!--/sidebar-menu-->
@@ -379,8 +432,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
                     <li><a href="m_room.php"><i class="fa fa-file-text-o"></i> <span>Quản lí phòng thi</span><div class="clearfix"></div></a></li>
 
-                    <li><a href="m_exam.php"><i class="fa fa-list-ul"></i><span>Quản lí kỳ thi</span> </span><div class="clearfix"></div></a></li>';
-                    
+                    <li><a href="m_exam.php"><i class="fa fa-list-ul"></i><span>Quản lí kỳ thi</span> </span><div class="clearfix"></div></a></li>
+                  
                     <li><a href="m_student_term.php"><i class="fa fa-list-ul"></i><span>Quản lí sinh viên</span> </span><div class="clearfix"></div></a></li>
 
                     <li><a href="m_acc.php"><i class="fa fa-list-ul"></i><span>Quản lí tài khoản</span> </span><div class="clearfix"></div></a></li>
@@ -398,7 +451,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
                 $("#menu span").css({"position":"absolute"});
                 }
-                else{
+                else
+                {
                 $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
                 setTimeout(function() {
                   $("#menu span").css({"position":"relative"});
@@ -416,30 +470,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- morris JavaScript -->  
 <script src="../../js/raphael-min.js"></script>
 <script src="../../js/morris.js"></script>
-<script>
-    function printword() {
-    var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
-      "xmlns:w='urn:schemas-microsoft-com:office:word' " +
-      "xmlns='http://www.w3.org/TR/REC-html40'>" +
-      "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
-    var footer = "</body></html>";
-    var sourceHTML = document.getElementById("listPartici").innerHTML ;
-
-    var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-    var fileDownload = document.createElement("a");
-    document.body.appendChild(fileDownload);
-    fileDownload.href = source;
-    fileDownload.download = 'document.doc';
-    fileDownload.click();
-    document.body.removeChild(fileDownload);
-  }
-  function printcontent(element) {
-    var restorePage = document.body.innerHTML;
-    var printcontent = document.getElementById(element).innerHTML;
-    document.body.innerHTML = printcontent;
-    window.print();
-    document.body.innerHTML = restorePage;
-  }
-</script>
 </body>
 </html>

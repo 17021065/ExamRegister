@@ -380,7 +380,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <li><a href="m_room.php"><i class="fa fa-file-text-o"></i> <span>Quản lí phòng thi</span><div class="clearfix"></div></a></li>
 
                     <li><a href="m_exam.php"><i class="fa fa-list-ul"></i><span>Quản lí kỳ thi</span> </span><div class="clearfix"></div></a></li>
-                  
+                    
+                    <li><a href="m_student_term.php"><i class="fa fa-list-ul"></i><span>Quản lí sinh viên</span> </span><div class="clearfix"></div></a></li>
+
+                    <li><a href="m_acc.php"><i class="fa fa-list-ul"></i><span>Quản lí tài khoản</span> </span><div class="clearfix"></div></a></li>
                   </ul>
                 </div>
                 </div>

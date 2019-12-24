@@ -99,7 +99,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                       </li>
                       <li><a href="#">
-                         <div class="user_img"><img src="images/in11.jpg" alt=""></div>
+                         <div class="user_img"><img src="../../images/in11.jpg" alt=""></div>
                          <div class="notification_desc">
                         <p>Lorem ipsum dolor</p>
                         <p><span>1 hour ago</span></p>
@@ -107,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                          <div class="clearfix"></div> 
                       </a></li>
                       <li class="odd"><a href="#">
-                        <div class="user_img"><img src="images/in10.jpg" alt=""></div>
+                        <div class="user_img"><img src="../../images/in10.jpg" alt=""></div>
                          <div class="notification_desc">
                         <p>Lorem ipsum dolor </p>
                         <p><span>1 hour ago</span></p>
@@ -115,7 +115,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="clearfix"></div>  
                       </a></li>
                       <li><a href="#">
-                         <div class="user_img"><img src="images/in9.jpg" alt=""></div>
+                         <div class="user_img"><img src="../../images/in9.jpg" alt=""></div>
                          <div class="notification_desc">
                         <p>Lorem ipsum dolor</p>
                         <p><span>1 hour ago</span></p>
@@ -286,8 +286,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </ol>
 <div class="agile-grids">	
 				<!-- tables -->
-				
-				<div class="agile-tables">
+				<button class="btn-primary btn" onclick="printcontent('listPartici')">In danh sách</button>
+        <button class="btn-primary btn" onclick="printword()">Xuất ra file word</button>
+				<div class="agile-tables" id="listPartici">
 					<div class="w3l-table-info">
 					  <h2>Lịch thi</h2>
 					    <table id="table">
@@ -393,8 +394,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
                 $("#menu span").css({"position":"absolute"});
                 }
-                else
-                {
+                else{
                 $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
                 setTimeout(function() {
                   $("#menu span").css({"position":"relative"});
@@ -412,6 +412,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- morris JavaScript -->  
 <script src="../../js/raphael-min.js"></script>
 <script src="../../js/morris.js"></script>
+<script>
+    function printword() {
+    var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' " +
+      "xmlns:w='urn:schemas-microsoft-com:office:word' " +
+      "xmlns='http://www.w3.org/TR/REC-html40'>" +
+      "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title></head><body>";
+    var footer = "</body></html>";
+    var sourceHTML = document.getElementById("listPartici").innerHTML ;
+
+    var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+    var fileDownload = document.createElement("a");
+    document.body.appendChild(fileDownload);
+    fileDownload.href = source;
+    fileDownload.download = 'document.doc';
+    fileDownload.click();
+    document.body.removeChild(fileDownload);
+  }
+  function printcontent(element) {
+    var restorePage = document.body.innerHTML;
+    var printcontent = document.getElementById(element).innerHTML;
+    document.body.innerHTML = printcontent;
+    window.print();
+    document.body.innerHTML = restorePage;
+  }
+</script>
 </body>
 </html>
 
